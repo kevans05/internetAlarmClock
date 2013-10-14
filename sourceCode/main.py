@@ -28,10 +28,14 @@ def checkAlarm(now):
 	#	webbrowser.open(webAddress)
 
 def pullOnCSV():
-	ifile  = open('egg.csv', "rb")
-	spamreader = csv.reader(ifile, delimiter=' ', quotechar='|')
-	for row in spamreader:
-		print ', '.join(row)
+	TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+	with open('egg.csv', 'rU') as csvfile:
+		spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+		try:
+			for row in spamreader:
+				print ', '.join(row)
+		except csv.Error as e:
+			sys.exit()
 	sleep(5)
 
 def main():
