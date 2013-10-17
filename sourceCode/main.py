@@ -24,19 +24,26 @@ def compairNTPvsOS():
 
 def checkAlarm(now):
 	print "I need an alarm function"
-	#if(now.tm_hour == int(alarm_HH)):
-	#	webbrowser.open(webAddress)
+	print "Next Alarm", alarmTimeData
+	if now == alarmTimeData:
+		webbrowser.open(webAddress)
 
-def pullOnCSV():
+def pullOnCSVTime():
 	TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 	with open('egg.csv', 'rU') as csvfile:
-		spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+		spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+		rownum = 0
 		try:
 			for row in spamreader:
-				print ', '.join(row)
+				if(rownum == 1):
+					alarmTimeData = datetime.datetime.strptime(row[0], '%m/%d/%Y/%H:%M')
+					print alarmTimeData
+				elif(rownum == 2):
+					webAddress = row[0]
+					#print webAddress
+				rownum += 1
 		except csv.Error as e:
 			sys.exit()
-	sleep(5)
 
 def main():
 	compairNTPvsOS()
