@@ -52,11 +52,9 @@ def getTimeFromCSV(csvfile):
 			if(rownum == 1):
 				return datetime.datetime.strptime(row[0], '%m/%d/%Y/%H:%M')
 			else:
-				return Error
 			rownum+=rownum
 	except Exception, e:
 		raise e
-		return Error
 
 def main():
 	compairNTPvsOS()
