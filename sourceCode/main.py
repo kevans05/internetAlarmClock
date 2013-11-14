@@ -1,4 +1,4 @@
-import ntplib,datetime, os, urllib2, csv, webbrowser
+import ntplib,datetime, os, urllib2, webbrowser, dataset
 from time import ctime, localtime, strftime,sleep
 
 def internetOn():
@@ -26,35 +26,14 @@ def checkAlarm(now):
 	#print "Next Alarm", alarmTimeData
 	#if now == alarmTimeData:
 		#webbrowser.open(webAddress)
-def pullCSV():
-	TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-	with open('egg.csv', 'rU') as csvfile:
-		return csvfile
+def pullDB():
+	db = dataset.connect('sqlite:///alarmClock.db')
+	alarmTable = db['alarm']
+	return db
 
-		#spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-		#rownum = 0
-		#try:
-		#	for row in spamreader:
-		#		if(rownum == 1):
-		#			alarmTimeData = datetime.datetime.strptime(row[0], '%m/%d/%Y/%H:%M')
-		#			print alarmTimeData
-		#		elif(rownum == 2):
-		#			webAddress = row[0]
-		#			print webAddress
-		#		rownum += 1
-		#except csv.Error as e:
-		#	sys.exit()
-def getTimeFromCSV(csvfile):
-	spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-	rownum = 0
-	try:
-		for row in spamreader:
-			if(rownum == 1):
-				return datetime.datetime.strptime(row[0], '%m/%d/%Y/%H:%M')
-			else:
-			rownum+=rownum
-	except Exception, e:
-		raise e
+def getTimeFromDB(dbFile):
+	print 'shit'
+	
 
 def main():
 	compairNTPvsOS()
@@ -66,8 +45,8 @@ def main():
 			var = 0
 			compairNTPvsOS
 		elif  var%60 == 0:
-			csvFile = pullCSV()
-			getTimeFromCSV(csvFile)
+			dbFile = pullDB()
+			getTimeFromDB(dbFile)
 		else:
 			checkAlarm(now)
 			y = strftime("%H:%M:%S", localtime())
