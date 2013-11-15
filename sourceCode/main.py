@@ -21,20 +21,16 @@ def compairNTPvsOS():
 		print "NTP CHECK FAILED \n\n Hardware TIME:", strftime("%I:%M:%S", localtime())
 
 
-def checkAlarm(now):
+def checkAlarm(now, dbFile):
 	print "I need an alarm function"
-	#print "Next Alarm", alarmTimeData
-	#if now == alarmTimeData:
-		#webbrowser.open(webAddress)
+	alarmTable = dbFile['alarm']
+	nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
+	if nextAlarm != None:
+		webbrowser.open(nextAlarm.webaddress)
 def pullDB():
 	db = dataset.connect('sqlite:///alarmClock.db')
 	alarmTable = db['alarm']
 	return db
-
-def getTimeFromDB(dbFile):
-	print 'shit'
-	
-
 def main():
 	compairNTPvsOS()
 	var = 0
@@ -46,9 +42,8 @@ def main():
 			compairNTPvsOS
 		elif  var%60 == 0:
 			dbFile = pullDB()
-			getTimeFromDB(dbFile)
 		else:
-			checkAlarm(now)
+			checkAlarm(now, dbFile)
 			y = strftime("%H:%M:%S", localtime())
 			print "True time:", y#, "Alarm Off:", alarm_HH, alarm_MIN 
 			#print var
