@@ -1,4 +1,4 @@
-import ntplib,datetime, os, urllib2, webbrowser, dataset
+import ntplib,datetime, os, urllib2, webbrowser, dataset, thread
 from time import ctime, localtime, strftime,sleep
 
 def internetOn():
@@ -22,14 +22,18 @@ def compairNTPvsOS():
 
 
 def checkAlarm(now, dbFile):
-	print "I need an alarm function"
 	alarmTable = dbFile['alarm']
 	nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
-	if nextAlarm != None:
-		webbrowser.open(nextAlarm.webaddress)
-def pullDB():
+	if nextAlarm != None and nextAlarm.alarmTriggered != 1:
+		webbrowser.open(nextAlarm.webaddress)	
+
+def pullDB(now):
 	db = dataset.connect('sqlite:///alarmClock.db')
 	alarmTable = db['alarm']
+	if(db['alarm'].columns == "set([u'webaddress', u'hour', u'id', u'alarmTriggered', u'alarmName', u'month', u'day', u'minute'])" is False):
+		alarmTable.insert(dict(alarmName = 'system boot', year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min,webaddress='http://www.youtube.com/watch?v=T4nLjWqfiZ4', alarmTriggered = True))
+	else:
+		print "preloadedID"
 	return db
 def main():
 	compairNTPvsOS()
@@ -41,12 +45,11 @@ def main():
 			var = 0
 			compairNTPvsOS
 		elif  var%60 == 0:
-			dbFile = pullDB()
+			dbFile = pullDB(now)
 		else:
 			checkAlarm(now, dbFile)
 			y = strftime("%H:%M:%S", localtime())
-			print "True time:", y#, "Alarm Off:", alarm_HH, alarm_MIN 
-			#print var
+			print "True time:", y
 		var+=1
 		sleep(1)
 		os.system('clear') 
