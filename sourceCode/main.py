@@ -25,7 +25,13 @@ def checkAlarm(now, dbFile):
 	alarmTable = dbFile['alarm']
 	nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
 	if nextAlarm != None and nextAlarm.alarmTriggered != 1:
-		webbrowser.open(nextAlarm.webaddress)	
+		if internetOn() == True: 
+			webbrowser.open(nextAlarm.webaddress)
+		else:
+			cycles = 0
+			while cycles <= 10:
+				os.system('say "WAKE THE FUCK UP"')
+				cycles+=1
 
 def pullDB(now):
 	db = dataset.connect('sqlite:///alarmClock.db')
