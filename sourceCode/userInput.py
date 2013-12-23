@@ -22,16 +22,5 @@ def stopAlarm(browser):
 	browser.quit()
 
 def sleepPressed():
-	
-
-
-def main():
-	#browser = webdriver.Firefox()
-	#browser.get('http://www.youtube.com/watch?v=0mZdhHG5ZCA&feature=share&list=PL084E6F640B3B0A55')
-	#time.sleep(10)
-	#stopAlarm(browser)
-
-
-main()
 
 
