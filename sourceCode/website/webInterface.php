@@ -69,56 +69,53 @@
 		<h1>Page Three</h1>
 	</div>
 	<div data-role="content">
-	  <div data-role="fieldcontain">
-	    <p>
-	      <label for="textinput2">Preset 1:</label>
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput2">Preset 1:</label>
 	      <input type="text" name="textinput2" id="textinput2" value=""  />
-	    </p>
-	    <p>&nbsp;         
-	    
-	    <div data-role="fieldcontain">
-          <p>
-            <label for="textinput3">Preset 2:</label>
-            <input type="text" name="textinput3" id="textinput3" value=""  />
-          </p>
-          <p>&nbsp;
-          <div data-role="fieldcontain">
-            <p>
-              <label for="textinput4">Preset 3:</label>
-              <input type="text" name="textinput4" id="textinput4" value=""  />
-            </p>
-            <p>&nbsp;            
-            
-            <div data-role="fieldcontain">
-              <p>
-                <label for="textinput5">Preset 4:</label>
-                <input type="text" name="textinput5" id="textinput5" value=""  />
-              </p>
-              <p>&nbsp;
-              <div data-role="fieldcontain">
-                <p>
-                  <label for="textinput6">Preset 5:</label>
-                  <input type="text" name="textinput6" id="textinput6" value=""  />
-                </p>
-                <p>&nbsp;                
-                <div data-role="fieldcontain">
-                  <p>
-                    <label for="textinput7">Preset 6:</label>
-                    <input type="text" name="textinput7" id="textinput7" value=""  />
-                  </p>
-                  <p>&nbsp;</p>
-                </div>
-                </p>
-              </div>
-              </p>
-            </div>
-            </p>
-          </div>
-          </p>
         </div>
 	    </p>
-      </div>
+	  </div>
 	</div>
+	<div data-role="content">
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput3">Preset 2:</label>
+	      <input type="text" name="textinput2" id="textinput2" value=""  />
+        </div>
+	    </p>
+	  </div>
+	</div>
+ 			<div data-role="content">
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput4">Preset 3:</label>
+	      <input type="text" name="textinput2" id="textinput2" value=""  />
+        </div>
+	    </p>
+	  </div>
+	</div>
+    	<div data-role="content">
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput5">Preset 4:</label>
+	      <input type="text" name="textinput2" id="textinput2" value=""  />
+        </div>
+	    </p>
+	  </div>
+	</div>
+    	<div data-role="content">
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput6">Preset 5:</label>
+	      <input type="text" name="textinput2" id="textinput2" value=""  />
+        </div>
+	    </p>
+	  </div>
+	</div>
+        	<div data-role="content">
+	  <div data-role="fieldcontain"><div data-role="fieldcontain">
+        <label for="textinput7">Preset 6:</label>
+	      <input type="text" name="textinput2" id="textinput2" value=""  />
+        </div>
+	    </p>
+	  </div>
+	</div>      
 	<div data-role="footer">
 		<h4>Page Footer</h4>
 	</div>
@@ -129,7 +126,33 @@
 		<h1>Active Alarms</h1>
 	</div>
 	<div data-role="content">	
+		<?php
+$con=mysqli_connect("localhost","root","root","alarmDB");
+// Check connection
+if (mysqli_connect_errno())
+{
+echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 
+$result = mysqli_query($con,"SELECT * FROM Persons");
+
+echo "<table border='1'>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+</tr>";
+
+while($row = mysqli_fetch_array($result))
+{
+echo "<tr>";
+echo "<td>" . $row['FirstName'] . "</td>";
+echo "<td>" . $row['LastName'] . "</td>";
+echo "</tr>";
+}
+echo "</table>";
+
+mysqli_close($con);
+?>
 	</div>
 	<div data-role="footer">
 		<h4>Page Footer</h4>
