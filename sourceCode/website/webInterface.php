@@ -67,56 +67,35 @@
 	<div data-role="header">
 		<h1>Set Presets</h1>
 	</div>
-	<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput2">Preset 1:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-	</div>
-	<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput3">Preset 2:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-	</div>
- 			<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput4">Preset 3:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-	</div>
-    	<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput5">Preset 4:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-	</div>
-    	<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput6">Preset 5:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-	</div>
-        	<div data-role="content">
-	  <div data-role="fieldcontain"><div data-role="fieldcontain">
-        <label for="textinput7">Preset 6:</label>
-	      <input type="text" name="textinput2" id="textinput2" value=""  />
-        </div>
-	    </p>
-	  </div>
-    <a href="#" data-role="button">Button</a>	        </div>      
+	<div data-role="content">    </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput2">Preset 1:</label>
+	  <input type="text" name="textinput2" id="textinput2" value=""  />
+  </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput3">Preset 2:</label>
+	  <input type="text" name="textinput3" id="textinput3" value=""  />
+  </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput4">Preset 3:</label>
+	  <input type="text" name="textinput4" id="textinput4" value=""  />
+  </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput5">Preset 4:</label>
+	  <input type="text" name="textinput5" id="textinput5" value=""  />
+  </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput6">Preset 5:</label>
+	  <input type="text" name="textinput6" id="textinput6" value=""  />
+  </div>
+	<div data-role="fieldcontain">
+	  <label for="textinput7">Preset 6:</label>
+	  <input type="text" name="textinput7" id="textinput7" value=""  />
+  </div>
+	<input type="button" value="Button" />
+  
 	<div data-role="footer">
-		<h4><li><a href="#page">Home</a></li></h4>
+	  <h4><li><a href="#page">Home</a></li></h4>
 	</div>
 </div>
 
@@ -137,15 +116,17 @@ $result = mysqli_query($con,"SELECT * FROM Persons");
 
 echo "<table border='1'>
 <tr>
-<th>Firstname</th>
-<th>Lastname</th>
+<th>Time</th>
+<th>Date</th>
+<th>AlarmType</th>
 </tr>";
 
 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['FirstName'] . "</td>";
-echo "<td>" . $row['LastName'] . "</td>";
+echo "<td>" . $row['Time'] . "</td>";
+echo "<td>" . $row['Date'] . "</td>";
+echo "<td>" . $row['AlarmType'] . "</td>";
 echo "</tr>";
 }
 echo "</table>";
