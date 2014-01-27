@@ -11,13 +11,13 @@
 
 <div data-role="page" id="page">
 	<div data-role="header">
-		<h1>Page One</h1>
+		<h1>K-JAM</h1>
 	</div>
 	<div data-role="content">	
 		<ul data-role="listview">
-			<li><a href="#page2">Page Two</a></li>
-            <li><a href="#page3">Page Three</a></li>
-			<li><a href="#page4">Page Four</a></li>
+			<li><a href="#page2">Add Alarm</a></li>
+            <li><a href="#page3">Set Preset</a></li>
+			<li><a href="#page4">List Alarms</a></li>
 		</ul>		
 	</div>
 	<div data-role="footer">
@@ -55,18 +55,17 @@
         </div>
         </p>
       <a href="#" data-role="button">Button</a></div>
-      Content
 </p>
 		<p>&nbsp;</p>
 	</div>
 	<div data-role="footer">
-		<h4>Page Footer</h4>
+		<h4><li><a href="#page">Home</a></li></h4>
 	</div>
 </div>
 
 <div data-role="page" id="page3">
 	<div data-role="header">
-		<h1>Page Three</h1>
+		<h1>Set Presets</h1>
 	</div>
 	<div data-role="content">
 	  <div data-role="fieldcontain"><div data-role="fieldcontain">
@@ -115,19 +114,19 @@
         </div>
 	    </p>
 	  </div>
-	</div>      
+    <a href="#" data-role="button">Button</a>	        </div>      
 	<div data-role="footer">
-		<h4>Page Footer</h4>
+		<h4><li><a href="#page">Home</a></li></h4>
 	</div>
 </div>
 
 <div data-role="page" id="page4">
 	<div data-role="header">
-		<h1>Active Alarms</h1>
+		<h1> Alarms</h1>
 	</div>
 	<div data-role="content">	
 		<?php
-$con=mysqli_connect("localhost","root","root","alarmDB");
+$con=mysqli_connect("localhost","root","root","test");
 // Check connection
 if (mysqli_connect_errno())
 {
@@ -155,7 +154,7 @@ mysqli_close($con);
 ?>
 	</div>
 	<div data-role="footer">
-		<h4>Page Footer</h4>
+		<h4><li><a href="#page">Home</a></li></h4>
 	</div>
 </div>
 
