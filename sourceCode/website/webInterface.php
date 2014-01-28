@@ -35,7 +35,7 @@
 		  <p>
 		    <label for="time">Time:<br>
 		    </label>
-		    <input type="time" name="time" id="time" value=""  />
+		    <input type="time" name="time" id="time" value="<?php echo $time;?>"  />
 	    </p>
 	  </div>
       <div data-role="fieldcontain">
@@ -43,23 +43,21 @@
           <label for="date">Date:</label>
         </p>
         <p>
-          <input type="date" name="date" id="date" value=""  />
+          <input type="date" name="date" id="date" value="<?php echo $date;?>"  />
         </p>
         <div data-role="fieldcontain">
           <p>
             <label for="textinput">Text Input:</label>
           </p>
           <p>
-            <input type="text" name="textinput" id="textinput" value=""  />
+            <input type="text" name="textinput" id="textinput" value="<?php echo $website;?>"  />
           </p>
         </div>
         </p>
-      <a href="#" data-role="button">Button</a></div>
-</p>
-		<p>&nbsp;</p>
+      <a href="#" data-role="button">Submit</a>		</div>
 	</div>
 	<div data-role="footer">
-		<h4><li><a href="#page">Home</a></li></h4>
+	  <h4><li><a href="#page">Home</a></li></h4>
 	</div>
 </div>
 
@@ -92,7 +90,7 @@
 	  <label for="textinput7">Preset 6:</label>
 	  <input type="text" name="textinput7" id="textinput7" value=""  />
   </div>
-	<input type="button" value="Button" />
+	<input type="button" value="Submit" />
   
 	<div data-role="footer">
 	  <h4><li><a href="#page">Home</a></li></h4>
