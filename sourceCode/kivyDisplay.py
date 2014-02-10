@@ -17,6 +17,7 @@ class TimeApp(App):
         crudeclock = timeDisplay()
         Clock.schedule_interval(crudeclock.update, 1)
         return crudeclock
-
+class alarmFunction():
+	d
 if __name__ == "__main__":
     TimeApp().run()
