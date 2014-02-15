@@ -24,7 +24,7 @@ def compairNTPvsOS():
 def checkAlarm(now, dbFile):
 	alarmTable = dbFile['alarm']
 	nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
-	if nextAlarm != None and nextAlarm.alarmTriggered != 1:
+	if nextAlarm != None and nextAlarm.alarmTriggered != True:
 		if internetOn() == True: 
 			webbrowser.open(nextAlarm.webaddress)
 		else:
@@ -34,13 +34,15 @@ def checkAlarm(now, dbFile):
 				cycles+=1
 
 def pullDB(now):
-	db = dataset.connect('mysql://root:root@localhost/test')
-	alarmTable = db['alarm']
-	if(db['alarm'].columns == "set([u'webaddress', u'hour', u'id', u'alarmTriggered', u'alarmName', u'month', u'day', u'minute'])" is False):
-		alarmTable.insert(dict(alarmName = 'system boot', year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min,webaddress='http://www.youtube.com/watch?v=T4nLjWqfiZ4', alarmTriggered = True))
-	else:
-		print "preloadedID"
-	return db
+	#db = dataset.connect('mysql://root:root@localhost/test') ##Use if mySQL is implemented on machine
+    db = dataset.connect('sqlite:///alarmClock.db') ##Use if no mySQL on system
+    alarmTable = db['alarm']
+    #if(db['alarm'].columns == "set([u'webaddress', u'hour', u'id', u'alarmTriggered', u'alarmName', u'month', u'day', u'minute'])" is False):
+    alarmTable.insert(dict(alarmName = 'system boot', year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min,webaddress='http://www.youtube.com/watch?v=T4nLjWqfiZ4', alarmTriggered = True))
+    #	print "preloadedID FAIL NEW GENERATION"
+    #else:
+    	#print "preloadedID"
+    return db
 def main():
 	compairNTPvsOS()
 	var = 0
