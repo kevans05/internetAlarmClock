@@ -63,10 +63,14 @@ class InPutOutPutTools:
 
 class timeDisplay(Label):
     def update(self, *args):
+    	##Set the font size in pixles
     	self.font_size = '100dp'
+    	## alighns the text to the left hand side of the screen
     	self.halign = 'left'
     	#self.color=[0, 0, 8, 1]
+    	## changes the top of the Y corrdanit acotidnig the the walls
     	self.padding_y = 175
+    	##displays the Text east as shit to change considering pulling in the time so I can ensure it is correct to alarm just incase something gose wrong
         self.text = strftime("%I:%M:%S %p", localtime()) + "\n" + strftime("%d-%B-%Y", localtime())
 
 class main(App):
@@ -78,16 +82,20 @@ class main(App):
 		#creats the alarm tools
 		alarmToolSet = alarmTools()
 		#this is the display
-		clock = timeDisplay()
+		clockGUI = timeDisplay()
 		##call the current Time fuction and assigne it to current time
 		currentTime = localtime()
 
 
+		## I call the current database and asign it to the dbFile
 		dbFile = dataBaseSet.pullDB(currentTime)
+		##I am using the tool set so that I can swee what is in the database
 		testToolSet.printOutColumnTitals(dbFile)
-		alarmToolSet.checkAlarm(currentTime, dbFile)
-		Clock.schedule_interval(clock.update, 1)
-		return clock
+		## should call the alarm but is not currently working
+		##Is the GUI that displays the time
+        time.ctime(alarmToolSet.checkAlarm(currentTime,dbFile))
+		Clock.schedule_interval(clockGUI.update, 1)
+		return clockGUI
 
 
 if __name__ == "__main__":
