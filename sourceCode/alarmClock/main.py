@@ -10,7 +10,7 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from time import ctime, localtime, strftime, sleep
 
-import dataset, urllib2, webbrowser
+import dataset, urllib2, webbrowser,datetime
 
 class ClockTools(Label):
     def update(self, *args):
@@ -117,7 +117,6 @@ class alarmTools:
         dataBaseSet = dataBaseTools()
         dbFile = dataBaseSet.pullDB()
         internetToolSet = internetTools()
-        #time = datetime.datetime.now()
         time = localtime()
         alarmTable = dbFile['alarm']
         nextAlarm = alarmTable.find_one(year=time.tm_year,month=time.tm_mon,day=time.tm_mday,hour=time.tm_hour,minute=time.tm_min)
@@ -141,7 +140,8 @@ class dataBaseTools:
 
 class TimeApp(App):
     def build(self):
-        analogDigital = True
+        #analogDigital = True
+        analogDigital = False
         alarm = alarmTools
         Clock.schedule_interval(alarm.checkAlarm, 1)
         if(analogDigital == True):
