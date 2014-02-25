@@ -10,7 +10,7 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty
 from time import ctime, localtime, strftime, sleep
 
-import dataset, urllib2, webbrowser,datetime
+import dataset, urllib2, webbrowser,datetime,os
 
 class ClockTools(Label):
     def update(self, *args):
@@ -117,19 +117,41 @@ class alarmTools:
         dataBaseSet = dataBaseTools()
         dbFile = dataBaseSet.pullDB()
         internetToolSet = internetTools()
-        time = localtime()
+        now = localtime()
         alarmTable = dbFile['alarm']
-        nextAlarm = alarmTable.find_one(year=time.tm_year,month=time.tm_mon,day=time.tm_mday,hour=time.tm_hour,minute=time.tm_min)
-       	if internetToolSet.internetOn() == True and nextAlarm.alarmTriggered != True:
-            alarmTable.update(dict(alarmTriggered = True))
-            webbrowser.open(url='http://www.youtube.com/watch?v=IgLcQmlN2Xg',new =0,autoraise=False)
-        elif internetToolSet.internetOn == False:
-	        cycles = 0
-	        while cycles <= 10:
-	            os.system('say "WAKE THE FUCK UP"')
-	            cycles+=1
-       	else:
-       		print "noAlarm"
+        nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
+        if nextAlarm != None:
+            if internetToolSet.internetOn() == True and nextAlarm.items()[7][1] != True:
+                value = nextAlarm.items()[6][1]
+                idtoChange = nextAlarm.items()[0][1]
+                nextAlarm = dict(id=idtoChange, alarmTriggered=True)
+                alarmTable.update(nextAlarm, ['id'])
+                webbrowser.open(value)
+            else:
+			    cycles = 0
+			    while cycles <= 10:
+				    os.system('say "WAKE THE FUCK UP"')
+				    cycles+=1
+    def goToSleep(self):
+        dataBaseSet = dataBaseTools()
+        dbFile = dataBaseSet.pullDB()
+        internetToolSet = internetTools()
+        now = localtime()
+        alarmTable = dbFile['alarm']
+        nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
+        if now.tm_min < 54:
+            minuteValue = ((now.tm_min - 60)+5)
+            hourValue = (now.tm_hour + 1)
+        else:
+            minuteValue = 5+tm_min
+            hourValue = (now.tm_hour)
+
+        if nextAlarm != None:
+                value = nextAlarm.items()[6][1]
+                idtoChange = nextAlarm.items()[0][1]
+                nextAlarm = dict(id=idtoChange,hour=hourValue, minute=minuteValue)
+                alarmTable.update(nextAlarm, ['id'])
+
 
 class dataBaseTools:
     def pullDB(self):
@@ -140,9 +162,10 @@ class dataBaseTools:
 
 class TimeApp(App):
     def build(self):
-        #analogDigital = True
-        analogDigital = False
+        analogDigital = True
+        #analogDigital = False
         alarm = alarmTools
+        Clock.schedule_interval(alarm.checkAlarm, 1)
         Clock.schedule_interval(alarm.checkAlarm, 1)
         if(analogDigital == True):
             clockGUI = ClockTools()
@@ -152,6 +175,53 @@ class TimeApp(App):
             clockGUI = MyClockWidget()
             Clock.schedule_interval(clockGUI.ticks.update_clock, 1)
             return clockGUI
+class volumeShit:
+    currentVolume = 10
+    def voulumeIncrease(self):
+        currentVolume += 1
+        PWM.set_duty_cycle("P9_14", currentVolume)
+
+    def volumeDecrease(self):
+        currentVolume -= 1
+        PWM.set_duty_cycle("P9_14", currentVolume)
+
+    def muteVolume(self):
+        currentVolume = 0
+        PWM.stop("P9_14")
+        PWM.cleanup()
+
+    def volumeControl(self):
+        if inputBefore > inputAfter:
+            volumeDecrease
+        elif inputBefore < inputAfter:
+            voulumeIncrease
+        elif currentVolume >= 0:
+            muteVolume
+
+    def volumeIntuate(self):
+        PWM.start("P9_14", 50)
+class switches:
+
+    # this is the plan http://arduino.cc/en/Tutorial/Debounce#.UwwbOPldWJE maybe go a little deeper but fuck it this will work
+    lastButtonState
+    lastDebounceTime
+    buttonState
+    #I will pass in the pinThatisBeingCalled in this one so i can reuse
+    def switchDebouncing(self,pinNumber):
+        reading = GPIO.wait_for_edge(pinNumber, GPIO.RISING)
+        if reading != lastButtonState:
+            lastDebounceTime = time.time() * 1000
+
+        if ((time.time() * 1000)-lastDebounceTime) > debounceDelay:
+            if reading != buttonState:
+                buttonState = reading
+                if buttonState == True:
+                    return True
+    #same thing gose here
+    def switchSetUp(self, pinNumber):
+        #call the pin and set its standard state
+        GPIO.output(pinNumber, GPIO.HIGH)
+        GPIO.cleanup()
 
 if __name__ == "__main__":
     TimeApp().run()
