@@ -175,10 +175,15 @@ class TimeApp(App):
             clockGUI = MyClockWidget()
             Clock.schedule_interval(clockGUI.ticks.update_clock, 1)
             return clockGUI
+
+
 class volumeShit:
     currentVolume = 10
     def voulumeIncrease(self):
-        currentVolume += 1
+        if currentVolume =< 100:
+            currentVolume = 100
+        else:
+            currentVolume += 1
         PWM.set_duty_cycle("P9_14", currentVolume)
 
     def volumeDecrease(self):
@@ -201,7 +206,6 @@ class volumeShit:
     def volumeIntuate(self):
         PWM.start("P9_14", 50)
 class switches:
-
     # this is the plan http://arduino.cc/en/Tutorial/Debounce#.UwwbOPldWJE maybe go a little deeper but fuck it this will work
     lastButtonState
     lastDebounceTime
