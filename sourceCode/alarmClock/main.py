@@ -2,9 +2,7 @@ __author__ = 'Kyle Evans'
 #Parts of KIVY that the main uses. I had to make a seprate GUI file becouse it was getting a little out of control in here
 from kivy.app import App
 from kivy.clock import Clock
-
 from time import ctime, localtime, sleep
-
 #Imports of files that I created are called here
 from GUITools import *
 from dataBaseAndInternetTools import *
@@ -22,8 +20,9 @@ class alarmTools:
         nextAlarm = alarmTable.find_one(year=now.tm_year,month=now.tm_mon,day=now.tm_mday,hour=now.tm_hour,minute=now.tm_min)
         if nextAlarm != None:
             if internetToolSet.internetOn() == True and nextAlarm.items()[7][1] != True:
+                os.system("TASKKILL /F /IM firefox")
                 value = nextAlarm.items()[6][1]
-                idtoChange = nextAlarm.items()[0][1] ##No clue were this came from if it works without it gets scrapt global name 'ClockTools' is not defined
+                idtoChange = nextAlarm.items()[0][1]
 
                 nextAlarm = dict(id=idtoChange, alarmTriggered=True)
                 alarmTable.update(nextAlarm, ['id'])
