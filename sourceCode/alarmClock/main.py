@@ -6,6 +6,7 @@ from time import ctime, localtime, sleep
 #Imports of files that I created are called here
 from GUITools import *
 from dataBaseAndInternetTools import *
+#from inputOutputToolSet.py import *
 
 
 import webbrowser,datetime,os
@@ -59,7 +60,9 @@ class TimeApp(App):
         #analogDigital = False
         internetToolSet = internetTools()
         alarm = alarmTools
+        #inputOutputTool = switches
         Clock.schedule_interval(alarm.checkAlarm, 1)
+        #Clock.schedule_interval(inputOutputTool.scanningForInput, 0.0001)
         Clock.schedule_interval(internetToolSet.compairNTPvsOS, 1)
         if(analogDigital == True):
             clockGUI = ClockTools()
