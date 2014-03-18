@@ -6,32 +6,36 @@ from Adafruit_BBIO.SPI import SPI
 
 class volumeShit:
     currentVolume = 10
+    #class: voulumeIncrease
+    #created by: Kyle Evans
+    #Description: changes the pwm of what is being applies to the bwm port on the sound chip
     def voulumeIncrease(self):
         if currentVolume < 100:
             currentVolume = 100
         else:
             currentVolume += 1
         PWM.set_duty_cycle("P9_14", currentVolume)
-
+    #class: volumeDecrease
+    #created by: Kyle Evans
+    #Description: changes the pwm of what is being applies to the bwm port on the sound chip
     def volumeDecrease(self):
         currentVolume -= 1
         PWM.set_duty_cycle("P9_14", currentVolume)
-
+    #class: muteVolume
+    #created by: Kyle Evans
+    #Description: changes the pwm of what is being applies to the bwm port on the sound chip
     def muteVolume(self):
         currentVolume = 0
         PWM.stop("P9_14")
         PWM.cleanup()
-
-    def volumeControl(self):
-        if inputBefore > inputAfter:
-            volumeDecrease
-        elif inputBefore < inputAfter:
-            voulumeIncrease
-        elif currentVolume >= 0:
-            muteVolume
-
+    #class: volumeIntuate
+    #created by: Kyle Evans
+    #Description: changes the pwm so it can start at a good level
     def volumeIntuate(self):
         PWM.start("P9_14", 50)
+#class: switches
+#created by: Kyle Evans
+#Description: initializes the SPI
 class switches:
     def initializeMCP3008(self):
         global SPICLK = 18

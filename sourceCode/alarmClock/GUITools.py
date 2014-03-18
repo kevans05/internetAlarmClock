@@ -9,7 +9,7 @@ from kivy.properties import NumericProperty
 
 
 ## you should work on passing local time from the main no need to call it twice
-from time import strftime, localtime
+from time import strftime, localtime, datetime
 
 
 class ClockTools(Label):
