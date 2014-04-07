@@ -1,13 +1,14 @@
 <html>
   <head>
     {% if title %}
-    <title>{{title}} - microblog</title>
+    <title>{{title}} - K-Jam</title>
     {% else %}
-    <title>microblog</title>
+    <title>K-JAM</title>
     {% endif %}
   </head>
   <body>
-    <div>Microblog: <a href="/index">Home</a></div>
+    <div>K-Jam: <a href="/index"> Home </a>|<a href="/setAlarm"> Set Alarm </a>|<a href="/presets"> Set Presets </a>|
+        <a href="/viewAlarms"> See Alarms </a>|<a href="/settings"> Settings</a></div>
     <hr>
     {% block content %}{% endblock %}
   </body>

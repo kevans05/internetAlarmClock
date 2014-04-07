@@ -1,0 +1,16 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Set an Alarm</h1>
+<p>Here is how to set an alarm</p>
+    <p>{{form.userSite}} Use a None Preset</p>
+    <p>{{form.selectingPreSet}}</p>
+    <p>
+        Please enter your OpenID:<br>
+        {{form.webaddress(size=80)}}<br>
+    </p>
+
+    <p><input type="submit" value="Sign In"></p>
+</form>
+{% endblock %}
