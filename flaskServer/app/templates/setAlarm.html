@@ -4,11 +4,14 @@
 {% block content %}
 <h1>Set an Alarm</h1>
 <p>Here is how to set an alarm</p>
+<form>
+    <p>Day:{{form.day(size=2)}} Mounth:{{form.mounth(size=2)}}Year:{{form.year(size=4)}}</p>
+    <p>Time:{{form.hour(size=2)}}:{{form.min(size=2)}}</p>
     <p>{{form.userSite}} Use a None Preset</p>
     <p>{{form.selectingPreSet}}</p>
     <p>
-        Please enter your OpenID:<br>
-        {{form.webaddress(size=80)}}<br>
+        Please enter the raido webpage:<br>
+        {{form.webaddress(size=60)}}<br>
     </p>
 
     <p><input type="submit" value="Sign In"></p>
